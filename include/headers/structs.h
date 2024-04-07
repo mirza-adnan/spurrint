@@ -20,6 +20,6 @@ typedef struct {
   bool onPlatform;
   bool hasJumped;
   bool continueJump;
-} Cat;
+} Joshim;
 
 #endif
