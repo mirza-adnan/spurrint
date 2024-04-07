@@ -14,6 +14,8 @@ typedef struct {
   float x, y;
   float dx, dy;
   int w,h;
+  SDL_Texture* frames[4];
+  int frameCount;
   short lives;
   bool facingRight;
   bool slowingDown;
