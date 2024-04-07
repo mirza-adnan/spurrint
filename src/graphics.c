@@ -2,7 +2,7 @@
 
 Graphics graphics;
 
-void gfx_Init() {
+void Gfx_Init() {
   graphics.window = SDL_CreateWindow("Spurrint", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
   if (graphics.window == NULL) {
     printf("Error creating window: %s\n", SDL_GetError());
@@ -14,19 +14,19 @@ void gfx_Init() {
   }
 }
 
-Graphics* gfx_GetGraphics() {
+Graphics* Gfx_GetGraphics() {
   return &graphics;
 }
 
-SDL_Window* gfx_GetWindow() {
+SDL_Window* Gfx_GetWindow() {
   return graphics.window;
 }
 
-SDL_Renderer* gfx_GetRenderer() {
+SDL_Renderer* Gfx_GetRenderer() {
   return graphics.renderer;
 }
 
-SDL_Texture* gfx_LoadTexture(char* filepath) {
+SDL_Texture* Gfx_LoadTexture(char* filepath) {
   SDL_Texture* texture = IMG_LoadTexture(graphics.renderer, filepath);
   if (texture == NULL) {
     printf("Error loading texture %s: %s\n", filepath, IMG_GetError());
@@ -34,19 +34,19 @@ SDL_Texture* gfx_LoadTexture(char* filepath) {
   return texture;
 }
 
-void gfx_ClearRend() {
+void Gfx_ClearRend() {
   SDL_RenderClear(graphics.renderer);
 }
 
-void gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest) {
-  SDL_RenderCopy(graphics.renderer, texture, src, dest);
+void Gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* dest) {
+  SDL_RenderCopy(graphics.renderer, texture, NULL, dest);
 }
 
-void gfx_PresentRend() {
+void Gfx_PresentRend() {
   SDL_RenderPresent(graphics.renderer);
 }
 
-void gfx_Cleanup() {
+void Gfx_Cleanup() {
   SDL_DestroyRenderer(graphics.renderer);
   SDL_DestroyWindow(graphics.window);
 }

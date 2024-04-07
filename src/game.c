@@ -2,20 +2,29 @@
 
 Game game;
 
-void Game_Init() {
+void Game_Start() {
   SDL_Init(SDL_INIT_EVERYTHING);
-  gfx_Init();
+  Gfx_Init();
+  Game_Init();
   Game_GameLoop();
-  printf("hello\n");
+}
+
+void Game_Init() {
+  game.time = 0;
+  Joshim_Init(&game.joshim);
+}
+
+void Game_RenderCycle() {
+  Gfx_ClearRend();
+  Joshim_Move(&game);
+  Joshim_Draw(&game.joshim);
+  Gfx_PresentRend();
 }
 
 void Game_GameLoop() {
   SDL_Event event;
-  while (1) {
-    if (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT) {
-        break;
-      }
-    }
+  while (Inp_Process(&game)) {
+    game.time++;
+    Game_RenderCycle();
   }
 }

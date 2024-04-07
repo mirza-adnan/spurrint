@@ -4,15 +4,16 @@
 #include "common.h"
 #include "defs.h"
 #include "structs.h"
+#include "enums.h"
 
-void gfx_Init();
-Graphics* gfx_GetGraphics();
-SDL_Window* gfx_GetWindow();
-SDL_Renderer* gfx_GetRenderer();
-SDL_Texture* gfx_LoadTexture(char* filepath);
-void gfx_ClearRend();
-void gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest);
-void gfx_PresentRend();
-void gfx_Cleanup();
+void Gfx_Init();
+Graphics* Gfx_GetGraphics();
+SDL_Window* Gfx_GetWindow();
+SDL_Renderer* Gfx_GetRenderer();
+SDL_Texture* Gfx_LoadTexture(char* filepath);
+void Gfx_ClearRend();
+void Gfx_BlitTexture(SDL_Texture* texture,SDL_Rect* dest);
+void Gfx_PresentRend();
+void Gfx_Cleanup();
 
 #endif
