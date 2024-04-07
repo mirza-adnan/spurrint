@@ -13,6 +13,6 @@ SDL_Texture* gfx_LoadTexture(char* filepath);
 void gfx_ClearRend();
 void gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest);
 void gfx_PresentRend();
-
+void gfx_Cleanup();
 
 #endif

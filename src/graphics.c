@@ -45,3 +45,8 @@ void gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest) {
 void gfx_PresentRend() {
   SDL_RenderPresent(graphics.renderer);
 }
+
+void gfx_Cleanup() {
+  SDL_DestroyRenderer(graphics.renderer);
+  SDL_DestroyWindow(graphics.window);
+}
