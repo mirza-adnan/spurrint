@@ -1,6 +1,6 @@
 #include "input.h"
 
-bool Inp_Process(Game* game) {
+bool Inp_EventLoop(Game* game) {
   bool continueLoop = true;
 
   SDL_Event event;

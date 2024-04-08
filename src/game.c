@@ -23,7 +23,7 @@ void Game_RenderCycle() {
 
 void Game_GameLoop() {
   SDL_Event event;
-  while (Inp_Process(&game)) {
+  while (Inp_EventLoop(&game)) {
     game.time++;
     Game_RenderCycle();
   }

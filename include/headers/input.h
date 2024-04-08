@@ -4,7 +4,7 @@
 #include "common.h"
 #include "structs.h"
 
-bool Inp_Process(Game* game);
+bool Inp_EventLoop(Game* game);
 
 
 #endif
