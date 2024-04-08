@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "structs.h"
 #include "enums.h"
+#include "defs.h"
 
 void Joshim_Init(Joshim* joshim);
 void Joshim_Draw(Joshim* joshim);

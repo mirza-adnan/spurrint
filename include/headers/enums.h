@@ -10,4 +10,10 @@ typedef enum {
   JOSHIM_TOTAL
 } JoshimFrames;
 
+typedef enum {
+  BLOCK_TYPE_EMPTY,
+  BLOCK_TYPE_GRASS,
+  BLOCK_TYPE_BRICK,
+} BlockType;
+
 #endif

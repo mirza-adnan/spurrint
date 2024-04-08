@@ -39,6 +39,12 @@ void Joshim_Move(Game* game) {
 
   game->joshim.x += game->joshim.dx;
   game->joshim.y += game->joshim.dy;
+
+  game->joshim.dy += GRAVITY;
+
+  if (game->joshim.y + game->joshim.h > SCREEN_HEIGHT) {
+    game->joshim.y = SCREEN_HEIGHT - game->joshim.h;
+  }
 }
 
 void Joshim_Cleanup(Joshim* joshim) {

@@ -15,6 +15,7 @@ bool Inp_EventLoop(Game* game) {
         continueLoop = false;
         break;
       case SDL_SCANCODE_SPACE:
+        game->joshim.dy = -7;
         break;
       }
     }
@@ -37,6 +38,10 @@ bool Inp_EventLoop(Game* game) {
     if (game->joshim.dx > 6) {
       game->joshim.dx = 6;
     }
+  }
+
+  if (state[SDL_SCANCODE_SPACE]) {
+    game->joshim.dy -= 0.3f;
   }
 
   if (!(state[SDL_SCANCODE_A] || state[SDL_SCANCODE_LEFT]) && !(state[SDL_SCANCODE_D] || state[SDL_SCANCODE_RIGHT])) {

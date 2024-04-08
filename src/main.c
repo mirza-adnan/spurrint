@@ -1,5 +1,4 @@
-#include "common.h"
-#include "game.h"
+#include "main.h"
 
 int main(int argc, char* argv[]) {
   Game_Start();

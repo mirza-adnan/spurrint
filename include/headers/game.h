@@ -8,6 +8,7 @@
 #include "structs.h"
 #include "enums.h"
 #include "input.h"
+#include "map.h"
 
 void Game_Start();
 void Game_Init();
