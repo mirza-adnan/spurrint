@@ -12,7 +12,7 @@
 void Game_Start();
 void Game_Init();
 void Game_GameLoop();
-
+void Game_Cleanup();
 
 
 #endif

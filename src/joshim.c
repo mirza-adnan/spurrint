@@ -40,3 +40,9 @@ void Joshim_Move(Game* game) {
   game->joshim.x += game->joshim.dx;
   game->joshim.y += game->joshim.dy;
 }
+
+void Joshim_Cleanup(Joshim* joshim) {
+  for (int i = 0; i < joshim->frameCount; i++) {
+    SDL_DestroyTexture(joshim->frames[i]);
+  }
+}

@@ -28,3 +28,8 @@ void Game_GameLoop() {
     Game_RenderCycle();
   }
 }
+
+void Game_Cleanup() {
+  Gfx_Cleanup();
+  Joshim_Cleanup(&game.joshim);
+}
