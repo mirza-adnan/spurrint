@@ -70,10 +70,16 @@ void Map_DetectCollision(Game* game) {
     float pRight = pLeft + pW, pBottom = pTop + pH;
 
     if ((cLeft < pRight) && (cRight > pLeft) && (cTop < pBottom) && (cBottom > pTop)) {
+      /*!!!THE ORDER OF IF STATEMENTS IS IMPORTANT!!!*/
       // colliding from the left
       if ((cRight > pLeft) && (cLeft < pLeft) && (cRight - pLeft < cBottom - pTop) && (cRight - pLeft < pBottom - cTop)) {
         game->joshim.dx = 0;
         game->joshim.x = pLeft - cW;
+      }
+      // colliding from the right
+      else if ((cLeft < pRight) & (cRight > pRight) && (pRight - cLeft < cBottom - pTop) && (pRight - cLeft < pBottom - cTop)) {
+        game->joshim.dx = 0;
+        game->joshim.x = pRight;
       }
       //landing on platform
       else if ((cBottom > pTop) && (cTop < pTop)) {
@@ -83,11 +89,6 @@ void Map_DetectCollision(Game* game) {
         game->joshim.continueJump = false;
         game->joshim.applyGravity = false;
         game->joshim.currPlatform = &game->map.platforms[i];
-      }
-      // colliding from the right
-      else if ((cLeft < pRight) & (cRight > pRight) && (pRight - cRight < cBottom - pTop) && (pRight - cLeft < pBottom - cTop)) {
-        game->joshim.dx = 0;
-        game->joshim.x = pRight;
       }
       // bumping head
       else if ((cTop < pBottom) && (cBottom > pBottom)) {
