@@ -101,3 +101,9 @@ void Map_DetectCollision(Game* game) {
 void Map_DrawMap(Map* map) {
   Map_DrawPlatforms(map);
 }
+
+void Map_Cleanup(Map* map) {
+  for (int i = 0; i < BLOCK_TYPE_TOTAL; i++) {
+    SDL_DestroyTexture(map->textures[i]);
+  }
+}

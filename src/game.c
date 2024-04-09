@@ -35,4 +35,5 @@ void Game_GameLoop() {
 void Game_Cleanup() {
   Gfx_Cleanup();
   Joshim_Cleanup(&game.joshim);
+  Map_Cleanup(&game.map);
 }

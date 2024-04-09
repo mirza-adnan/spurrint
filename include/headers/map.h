@@ -10,5 +10,6 @@ void Map_Init(Map* map);
 void Map_DrawPlatforms(Map* map);
 void Map_DetectCollision(Game* game);
 void Map_DrawMap(Map* map);
+void Map_Cleanup(Map* map);
 
 #endif

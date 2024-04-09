@@ -38,7 +38,7 @@ typedef struct {
 typedef struct {
   unsigned int platformCount;
   Platform platforms[100];
-  SDL_Texture* textures[BLOCK_TOTAL];
+  SDL_Texture* textures[BLOCK_TYPE_TOTAL];
 } Map;
 
 typedef struct {

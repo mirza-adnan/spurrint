@@ -20,7 +20,7 @@ typedef enum {
   BLOCK_TYPE_DIRT_1,
   BLOCK_TYPE_DIRT_2,
   BLOCK_TYPE_BRICK,
-  BLOCK_TOTAL
+  BLOCK_TYPE_TOTAL
 } BlockType;
 
 #endif
