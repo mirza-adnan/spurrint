@@ -93,6 +93,7 @@ void Map_DetectCollision(Game* game) {
       else if ((cTop < pBottom) && (cBottom > pBottom)) {
         game->joshim.dy = 0;
         game->joshim.y = pBottom;
+        game->joshim.continueJump = false;
       }
     }
   }

@@ -43,8 +43,8 @@ typedef struct {
 
 typedef struct {
   Joshim joshim;
-  unsigned int time;
   Map map;
+  unsigned int time;
 } Game;
 
 
