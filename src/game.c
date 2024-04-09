@@ -5,7 +5,7 @@ Game game;
 void Game_Start() {
   SDL_Init(SDL_INIT_EVERYTHING);
   Gfx_Init();
-  Map_Init();
+  Map_Init(&game.map);
   Game_Init();
   Game_GameLoop();
 }
@@ -17,8 +17,9 @@ void Game_Init() {
 
 void Game_RenderCycle() {
   Gfx_ClearRend();
-  Map_DrawMap();
+  Map_DrawMap(&game.map);
   Joshim_Move(&game);
+  Map_DetectCollision(&game);
   Joshim_Draw(&game.joshim);
   Gfx_PresentRend();
 }

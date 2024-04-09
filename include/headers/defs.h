@@ -8,4 +8,7 @@
 #define JOSHIM_SCALE 4
 #define PLATFORM_SCALE 2
 
+#define MAX_SPEED 5
+#define FRAMES_PER_ANIM 6
+
 #endif

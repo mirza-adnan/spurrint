@@ -15,7 +15,12 @@ bool Inp_EventLoop(Game* game) {
         continueLoop = false;
         break;
       case SDL_SCANCODE_SPACE:
-        game->joshim.dy = -7;
+        if (!event.key.repeat && game->joshim.onPlatform && !game->joshim.continueJump) {
+          game->joshim.dy = -7;
+          game->joshim.onPlatform = false;
+          game->joshim.continueJump = true;
+          game->joshim.applyGravity = true;
+        }
         break;
       }
     }
@@ -26,22 +31,17 @@ bool Inp_EventLoop(Game* game) {
     game->joshim.dx -= 0.5;
     game->joshim.facingRight = false;
     game->joshim.slowingDown = false;
-    if (game->joshim.dx < -6) {
-      game->joshim.dx = -6;
+    if (game->joshim.dx < -MAX_SPEED) {
+      game->joshim.dx = -MAX_SPEED;
     }
   }
-
-  if (state[SDL_SCANCODE_D] || state[SDL_SCANCODE_RIGHT]) {
+  else if (state[SDL_SCANCODE_D] || state[SDL_SCANCODE_RIGHT]) {
     game->joshim.dx += 0.5;
     game->joshim.facingRight = true;
     game->joshim.slowingDown = false;
-    if (game->joshim.dx > 6) {
-      game->joshim.dx = 6;
+    if (game->joshim.dx > MAX_SPEED) {
+      game->joshim.dx = MAX_SPEED;
     }
-  }
-
-  if (state[SDL_SCANCODE_SPACE]) {
-    game->joshim.dy -= 0.3f;
   }
 
   if (!(state[SDL_SCANCODE_A] || state[SDL_SCANCODE_LEFT]) && !(state[SDL_SCANCODE_D] || state[SDL_SCANCODE_RIGHT])) {
@@ -51,5 +51,17 @@ bool Inp_EventLoop(Game* game) {
       game->joshim.dx = 0;
     }
   }
+
+  if (state[SDL_SCANCODE_SPACE]) {
+    if (game->joshim.continueJump && !game->joshim.onPlatform) {
+      game->joshim.dy -= 0.3f;
+    }
+  }
+
+  if (!state[SDL_SCANCODE_SPACE]) {
+    game->joshim.continueJump = false;
+  }
+
+
   return continueLoop;
 }

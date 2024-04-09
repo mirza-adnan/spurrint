@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "structs.h"
+#include "defs.h"
 
 bool Inp_EventLoop(Game* game);
 

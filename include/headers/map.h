@@ -6,8 +6,9 @@
 #include "graphics.h"
 #include "enums.h"
 
-void Map_Init();
-void Map_DrawPlatforms();
-void Map_DrawMap();
+void Map_Init(Map* map);
+void Map_DrawPlatforms(Map* map);
+void Map_DetectCollision(Game* game);
+void Map_DrawMap(Map* map);
 
 #endif
