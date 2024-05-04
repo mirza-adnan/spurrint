@@ -1,13 +1,15 @@
 #include "joshim.h"
 
 void Joshim_Init(Joshim* joshim) {
-  joshim->x = 50;
-  joshim->y = 100;
+  joshim->x = 20;
+  joshim->y = 250;
   joshim->dx = 0;
   joshim->dy = 0;
 
   joshim->w = 64;
   joshim->h = 64;
+
+  joshim->score = 0;
 
   joshim->frames[JOSHIM_RUN_1] = Gfx_LoadTexture("./src/assets/sprites/joshim_stand_1.png");
   joshim->frames[JOSHIM_RUN_2] = Gfx_LoadTexture("./src/assets/sprites/joshim_run_1.png");
@@ -29,9 +31,9 @@ void Joshim_Init(Joshim* joshim) {
   joshim->applyGravity = true;
 }
 
-void Joshim_Draw(Joshim* joshim) {
-  SDL_Rect dest = { joshim->x, joshim->y, joshim->w, joshim->h };
-  SDL_RenderCopyEx(Gfx_GetRenderer(), joshim->frames[joshim->currFrame], NULL, &dest, 0, NULL, joshim->facingRight);
+void Joshim_Draw(Game* game) {
+  SDL_Rect dest = { game->joshim.x + game->scrollX, game->joshim.y, game->joshim.w, game->joshim.h };
+  SDL_RenderCopyEx(Gfx_GetRenderer(), game->joshim.frames[game->joshim.currFrame], NULL, &dest, 0, NULL, game->joshim.facingRight);
 }
 
 void Joshim_Move(Game* game) {
@@ -59,8 +61,10 @@ void Joshim_Move(Game* game) {
     game->joshim.dy += GRAVITY;
   }
 
-  if (game->joshim.y + game->joshim.h > SCREEN_HEIGHT) {
-    game->joshim.y = SCREEN_HEIGHT - game->joshim.h;
+  game->scrollX = -game->joshim.x + 320;
+
+  if (game->scrollX > 0) {
+    game->scrollX = 0;
   }
 }
 

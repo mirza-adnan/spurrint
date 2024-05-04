@@ -20,6 +20,7 @@ bool Inp_EventLoop(Game* game) {
           game->joshim.onPlatform = false;
           game->joshim.continueJump = true;
           game->joshim.applyGravity = true;
+          game->joshim.hasJumped = true;
         }
         break;
       }
@@ -53,8 +54,8 @@ bool Inp_EventLoop(Game* game) {
   }
 
   if (state[SDL_SCANCODE_SPACE]) {
-    if (game->joshim.continueJump && !game->joshim.onPlatform) {
-      game->joshim.dy -= 0.3f;
+    if (game->joshim.hasJumped && !game->joshim.onPlatform) {
+      game->joshim.dy -= 0.28f;
     }
   }
 

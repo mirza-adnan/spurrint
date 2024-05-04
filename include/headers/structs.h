@@ -19,6 +19,8 @@ typedef struct {
   float dx, dy;
   int w, h;
 
+  unsigned int score;
+
   SDL_Texture* frames[JOSHIM_TOTAL_FRAMES];
   int frameCount;
   JoshimFrames currFrame;
@@ -36,15 +38,30 @@ typedef struct {
 } Joshim;
 
 typedef struct {
+  float x, y;
+  int w, h;
+  bool collected;
+} Collectible;
+
+typedef struct {
   unsigned int platformCount;
-  Platform platforms[100];
+  Platform platforms[50];
+  unsigned int collectibleCount;
+  Collectible collectibles[20];
   SDL_Texture* textures[BLOCK_TYPE_TOTAL];
 } Map;
+
+typedef struct {
+  TTF_Font* fonts[FONT_SIZE_TOTAL];
+  SDL_Texture* scoreLabel;
+} Text;
 
 typedef struct {
   Joshim joshim;
   Map map;
   unsigned int time;
+  unsigned int score;
+  float scrollX;
 } Game;
 
 

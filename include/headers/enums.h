@@ -20,7 +20,19 @@ typedef enum {
   BLOCK_TYPE_DIRT_1,
   BLOCK_TYPE_DIRT_2,
   BLOCK_TYPE_BRICK,
+  BLOCK_TYPE_CHICKEN,
   BLOCK_TYPE_TOTAL
 } BlockType;
+
+typedef enum {
+  GAME_STATUS_MENU,
+  GAME_STATUS_GAME,
+  GAME_STATUS_END
+} GameStatus;
+
+typedef enum {
+  FONT_SIZE_48,
+  FONT_SIZE_TOTAL
+} FontSize;
 
 #endif
