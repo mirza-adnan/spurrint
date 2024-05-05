@@ -29,20 +29,22 @@ SDL_Texture* Text_CreateLabel(const char* msg, SDL_Color color, FontSize size) {
   return label;
 }
 
+void Text_DrawText(int x, int y, char* text, SDL_Color color, FontSize size) {
+  SDL_Texture* label = Text_CreateLabel(text, color, size);
+
+  SDL_Rect textRect = { x, y, 0, 0 };
+  SDL_QueryTexture(label, NULL, NULL, &textRect.w, &textRect.h);
+  Gfx_BlitTexture(label, &textRect);
+
+  SDL_DestroyTexture(label);
+}
+
 void Text_DrawScore(Game* game) {
   char str[6];
   sprintf(str, "%d", game->score);
 
   SDL_Color black = { 0, 0, 0, 255 };
-  textWrapper.scoreLabel = Text_CreateLabel(str, black, FONT_SIZE_48);
-
-  int x = 590 + (int)game->scrollX;
-
-  SDL_Rect scoreRect = { 560, 5, 0, 0 };
-  SDL_QueryTexture(textWrapper.scoreLabel, NULL, NULL, &scoreRect.w, &scoreRect.h);
-  Gfx_BlitTexture(textWrapper.scoreLabel, &scoreRect);
-  SDL_DestroyTexture(textWrapper.scoreLabel);
-  textWrapper.scoreLabel = NULL;
+  Text_DrawText(560, 5, str, black, FONT_SIZE_48);
 }
 
 void Text_Cleanup() {
