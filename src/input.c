@@ -23,6 +23,43 @@ bool Inp_EventLoop(Game* game) {
           game->joshim.hasJumped = true;
         }
         break;
+      case SDL_SCANCODE_R:
+        if (game->status == GAME_STATUS_END) {
+          game->time = 0;
+          game->joshim.x = 20;
+          game->joshim.y = 250;
+          game->joshim.dx = 0;
+          game->joshim.dy = 0;
+          game->scrollX = 0;
+          game->score = 0;
+
+          for (int i = 0; i < game->map.platformCount; i++) {
+            game->map.platforms[i].touched = false;
+          }
+          for (int i = 0; i < game->map.collectibleCount; i++) {
+            game->map.collectibles[i].collected = false;
+          }
+
+          game->status = GAME_STATUS_GAME;
+        }
+      }
+    case SDL_MOUSEBUTTONDOWN:
+      if (event.button.button == SDL_BUTTON_LEFT) {
+        MenuOption* options = Menu_GetOptions();
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        for (int i = 0; i < MENU_BUTTON_TOTAL; i++) {
+          if ((x > options[i].x) && (x < (options[i].x + options[i].w))) {
+            if ((y > options[i].y) && (y < (options[i].y + options[i].h))) {
+              if (options[i].type == MENU_BUTTON_PLAY) {
+                game->status = GAME_STATUS_GAME;
+              }
+              else if (options[i].type == MENU_BUTTON_EXIT) {
+                continueLoop = false;
+              }
+            }
+          }
+        }
       }
     }
   }

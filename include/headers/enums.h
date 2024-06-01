@@ -31,7 +31,22 @@ typedef enum {
 } GameStatus;
 
 typedef enum {
+  MENU_BUTTON_PLAY,
+  MENU_BUTTON_EXIT,
+  MENU_BUTTON_TOTAL
+} MenuButtonType;
+
+typedef enum {
+  MENU_TEXTURE_TITLE,
+  MENU_TEXTURE_ICON,
+  MENU_TEXTURE_BUTTON,
+  MENU_TEXTURE_TOTAL
+} MenuTexture;
+
+typedef enum {
+  FONT_SIZE_48_BOLD,
   FONT_SIZE_48,
+  FONT_SIZE_36,
   FONT_SIZE_TOTAL
 } FontSize;
 

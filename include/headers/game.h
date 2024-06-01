@@ -10,6 +10,7 @@
 #include "input.h"
 #include "map.h"
 #include "text.h"
+#include "menu.h"
 
 void Game_Start();
 void Game_Init();

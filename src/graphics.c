@@ -34,6 +34,10 @@ SDL_Texture* Gfx_LoadTexture(char* filepath) {
   return texture;
 }
 
+void Gfx_SetColor(int r, int g, int b, int a) {
+  SDL_SetRenderDrawColor(graphics.renderer, r, g, b, a);
+}
+
 void Gfx_ClearRend() {
   SDL_RenderClear(graphics.renderer);
 }

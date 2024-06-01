@@ -4,6 +4,7 @@
 #include "common.h"
 #include "structs.h"
 #include "defs.h"
+#include "menu.h"
 
 bool Inp_EventLoop(Game* game);
 

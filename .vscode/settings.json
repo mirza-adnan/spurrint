@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "main.h": "c",
-    "map.h": "c"
+    "map.h": "c",
+    "structs.h": "c",
+    "text.h": "c"
   }
 }

@@ -12,6 +12,7 @@ typedef struct {
 typedef struct {
   int x, y, h, w, size;
   BlockType type;
+  bool touched;
 } Platform;
 
 typedef struct {
@@ -49,6 +50,7 @@ typedef struct {
   unsigned int collectibleCount;
   Collectible collectibles[20];
   SDL_Texture* textures[BLOCK_TYPE_TOTAL];
+  SDL_Texture* buildings[2];
 } Map;
 
 typedef struct {
@@ -57,11 +59,24 @@ typedef struct {
 } Text;
 
 typedef struct {
+  char name[10];
+  int x, y, w, h;
+  bool selected;
+  MenuButtonType type;
+} MenuOption;
+
+typedef struct {
+  MenuOption options[3];
+  SDL_Texture* textures[3];
+} Menu;
+
+typedef struct {
   Joshim joshim;
   Map map;
   unsigned int time;
   unsigned int score;
   float scrollX;
+  GameStatus status;
 } Game;
 
 

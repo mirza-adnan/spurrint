@@ -9,6 +9,8 @@ void Map_Init(Map* map) {
   map->textures[BLOCK_TYPE_DIRT_2] = Gfx_LoadTexture("./src/assets/sprites/dirt_2.png");
   map->textures[BLOCK_TYPE_CHICKEN] = Gfx_LoadTexture("./src/assets/sprites/drumstick.png");
 
+  map->buildings[0] = Gfx_LoadTexture("./src/assets/buildings/building1.png");
+
   FILE* mapFile = fopen("./src/assets/maps/map1.dat", "rb");
   if (mapFile == NULL) {
     printf("Cannot find map file\n");
@@ -20,9 +22,9 @@ void Map_Init(Map* map) {
     line[strcspn(line, "\n")] = 0;
     Util_RemoveSpaces(line);
     int size = 0;
-    for (int j = 0; j < line[j + 1] != '\0'; j++) {
+    for (int j = 0; line[j + 1] != '\0'; j++) {
       BlockType block = line[j] - '0';
-      int nextBlock = line[j + 1] - '0';
+      // int nextBlock = line[j + 1] - '0';
       if (block) {
         if (block == BLOCK_TYPE_CHICKEN) {
           map->collectibles[map->collectibleCount].x = 32 * j;
@@ -44,6 +46,7 @@ void Map_Init(Map* map) {
           map->platforms[map->platformCount].h = 32;
           map->platforms[map->platformCount].size = size;
           map->platforms[map->platformCount].type = block;
+          map->platforms[map->platformCount].touched = false;
           map->platformCount++;
 
           j += size - 1;  // -1 because j is gonna be incremented after this iteration
@@ -107,6 +110,9 @@ void Map_DetectCollision(Game* game) {
   if (game->joshim.x < 0) {
     game->joshim.x = 0;
   }
+  if (game->joshim.y + game->joshim.h > SCREEN_HEIGHT) {
+    game->status = GAME_STATUS_END;
+  }
 
   for (int i = 0; i < game->map.platformCount; i++) {
     float cW = game->joshim.w, cH = game->joshim.h;
@@ -138,6 +144,11 @@ void Map_DetectCollision(Game* game) {
         game->joshim.hasJumped = false;
         game->joshim.applyGravity = false;
         game->joshim.currPlatform = &game->map.platforms[i];
+
+        if (game->map.platforms[i].type != 1 && !game->map.platforms[i].touched) {
+          game->score += 5;
+          game->map.platforms[i].touched = true;
+        }
       }
       // bumping head
       else if ((cTop < pBottom) && (cBottom > pBottom)) {
@@ -155,8 +166,15 @@ void Map_DrawSky(Game* game) {
   SDL_RenderClear(Gfx_GetRenderer());
 }
 
+void Map_DrawBuildings(Game* game) {
+  SDL_Rect rect1 = { 20 + game->scrollX, 100, 0, 0 };
+  SDL_QueryTexture(game->map.buildings[0], NULL, NULL, &rect1.w, &rect1.h);
+  Gfx_BlitTexture(game->map.buildings[0], &rect1);
+}
+
 void Map_DrawMap(Game* game) {
   Map_DrawSky(game);
+  Map_DrawBuildings(game);
   Map_DrawPlatforms(game);
   Map_DrawCollectibles(game);
 }
@@ -164,5 +182,9 @@ void Map_DrawMap(Game* game) {
 void Map_Cleanup(Map* map) {
   for (int i = 0; i < BLOCK_TYPE_TOTAL; i++) {
     SDL_DestroyTexture(map->textures[i]);
+  }
+
+  for (int i = 0; i < 2; i++) {
+    SDL_DestroyTexture(map->buildings[i]);
   }
 }

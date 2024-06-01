@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "enums.h"
 #include "utils.h"
+#include "text.h"
 
 void Map_Init(Map* map);
 void Map_DrawPlatforms(Game* game);
