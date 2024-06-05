@@ -10,6 +10,7 @@ void Game_Start() {
   Text_Init();
   Menu_Init();
   Map_Init(&game.map);
+  Music_Init();
   Joshim_Init(&game.joshim);
   Game_GameLoop();
 }
@@ -69,9 +70,11 @@ void Game_HandleDeath(Game* game) {
 void Game_HandleEnd(Game* game) {
   if (game->joshim.lives == 0) {
     game->status = GAME_STATUS_END;
+    Music_Stop();
   }
   else {
     if (game->joshim.y + game->joshim.h > SCREEN_HEIGHT) {
+      Music_Damage();
       Game_HandleDeath(game);
     }
   }
@@ -111,15 +114,27 @@ void Game_RenderCycle() {
   Gfx_ClearRend();
 
   if (game.status == GAME_STATUS_MENU) {
+    if (!Music_IsPlaying()) {
+      Music_Play();
+    }
     Menu_DrawMenu();
   }
   else if (game.status == GAME_STATUS_PAUSED) {
+    if (!Music_IsPlaying()) {
+      Music_Play();
+    }
     Menu_DrawPauseMenu();
   }
   else if (game.status == GAME_STATUS_GAME || game.status == GAME_STATUS_ENDING) {
+    if (!Music_IsPlaying()) {
+      Music_Play();
+    }
     Game_RenderGame();
   }
   else if (game.status == GAME_STATUS_END) {
+    if (Music_IsPlaying()) {
+      Music_Stop();
+    }
     Game_RenderEnd();
   }
 
@@ -140,7 +155,9 @@ void Game_Cleanup() {
   Joshim_Cleanup(&game.joshim);
   Map_Cleanup(&game.map);
   Menu_Cleanup();
+  Music_Cleanup();
 
+  Mix_Quit();
   TTF_Quit();
   SDL_Quit();
 }

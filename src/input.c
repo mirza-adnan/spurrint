@@ -19,6 +19,7 @@ bool Inp_EventLoop(Game* game) {
             game->joshim.continueJump = true;
             game->joshim.applyGravity = true;
             game->joshim.hasJumped = true;
+            Music_Jump();
           }
         }
         break;

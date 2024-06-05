@@ -141,6 +141,7 @@ void Map_CollectCollectible(Game* game) {
       if ((cTop < dBottom) && (cBottom > dTop) && (cRight > dLeft) && (cLeft < dRight)) {
         game->map.collectibles[i].collected = true;
         game->score += 10;
+        Music_Collect();
       }
 
     }
@@ -342,6 +343,7 @@ void Map_HandleHumanHit(Game* game) {
     float dRight = dLeft + dW, dBottom = dTop + dH;
 
     if ((cTop < dBottom) && (cBottom > dTop) && (cRight > dLeft) && (cLeft < dRight)) {
+      Music_Damage();
       Game_HandleDeath(game);
     }
   }

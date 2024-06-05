@@ -11,6 +11,7 @@
 #include "map.h"
 #include "text.h"
 #include "menu.h"
+#include "music.h"
 
 void Game_Start();
 void Game_Init();

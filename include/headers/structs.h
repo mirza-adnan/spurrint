@@ -55,6 +55,14 @@ typedef struct {
 } Human;
 
 typedef struct {
+  Mix_Chunk* bg;
+  Mix_Music* jump;
+  Mix_Music* collect;
+  Mix_Music* damage;
+  bool isPlaying;
+} Music;
+
+typedef struct {
   unsigned int platformCount;
   Platform platforms[100];
   unsigned int collectibleCount;
