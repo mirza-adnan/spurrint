@@ -60,6 +60,8 @@ typedef struct {
   unsigned int collectibleCount;
   Collectible collectibles[20];
   SDL_Texture* textures[BLOCK_TYPE_TOTAL];
+  SDL_Texture* chickenTex[6];
+  int chickenFrame;
   SDL_Texture* buildings[7];
   SDL_Texture* heart;
   SDL_Texture* manTex[3];

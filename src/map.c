@@ -11,6 +11,13 @@ void Map_Init(Map* map) {
   map->textures[BLOCK_TYPE_DIRT_2] = Gfx_LoadTexture("./src/assets/sprites/dirt_2.png");
   map->textures[BLOCK_TYPE_CHICKEN] = Gfx_LoadTexture("./src/assets/sprites/drumstick.png");
 
+  map->chickenTex[0] = Gfx_LoadTexture("./src/assets/sprites/drumstick.png");
+  map->chickenTex[1] = Gfx_LoadTexture("./src/assets/sprites/drumstick2.png");
+  map->chickenTex[2] = Gfx_LoadTexture("./src/assets/sprites/drumstick3.png");
+  map->chickenTex[3] = Gfx_LoadTexture("./src/assets/sprites/drumstick4.png");
+  map->chickenTex[4] = Gfx_LoadTexture("./src/assets/sprites/drumstick5.png");
+  map->chickenTex[5] = Gfx_LoadTexture("./src/assets/sprites/drumstick6.png");
+
   map->manTex[0] = Gfx_LoadTexture("./src/assets/sprites/man.png");
   map->manTex[1] = Gfx_LoadTexture("./src/assets/sprites/man_walk_1.png");
   map->manTex[2] = Gfx_LoadTexture("./src/assets/sprites/man_walk_2.png");
@@ -112,8 +119,11 @@ void Map_DrawCollectibles(Game* game) {
   for (int i = 0; i < game->map.collectibleCount; i++) {
     if (!game->map.collectibles[i].collected) {
       SDL_Rect dest = { game->map.collectibles[i].x + game->scrollX, game->map.collectibles[i].y, game->map.collectibles[i].w, game->map.collectibles[i].h };
-      Gfx_BlitTexture(game->map.textures[BLOCK_TYPE_CHICKEN], &dest);
+      Gfx_BlitTexture(game->map.chickenTex[game->map.chickenFrame], &dest);
     }
+  }
+  if (game->time % 8 == 0) {
+    game->map.chickenFrame = (game->map.chickenFrame + 1) % 6;
   }
 }
 
@@ -409,5 +419,9 @@ void Map_Cleanup(Map* map) {
 
   for (int i = 0; i < 4; i++) {
     SDL_DestroyTexture(map->endTex[i]);
+  }
+
+  for (int i = 0; i < 6; i++) {
+    SDL_DestroyTexture(map->chickenTex[i]);
   }
 }
