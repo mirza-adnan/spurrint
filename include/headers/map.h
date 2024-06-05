@@ -13,8 +13,9 @@ void Map_DrawPlatforms(Game* game);
 void Map_DrawCollectibles(Game* game);
 void Map_DrawSky(Game* game);
 void Map_CollectCollectible(Game* game);
-void Map_DetectCollision(Game* game);
+void Map_Update(Game* game);
 void Map_DrawMap(Game* game);
 void Map_Cleanup(Map* map);
+void Map_EndingAnimation(Game* game);
 
 #endif

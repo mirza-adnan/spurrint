@@ -11,6 +11,8 @@ void Joshim_Init(Joshim* joshim) {
 
   joshim->score = 0;
 
+  joshim->lives = 9;
+
   joshim->frames[JOSHIM_RUN_1] = Gfx_LoadTexture("./src/assets/sprites/joshim_stand_1.png");
   joshim->frames[JOSHIM_RUN_2] = Gfx_LoadTexture("./src/assets/sprites/joshim_run_1.png");
   joshim->frames[JOSHIM_RUN_3] = Gfx_LoadTexture("./src/assets/sprites/joshim_run_2.png");
@@ -36,7 +38,7 @@ void Joshim_Draw(Game* game) {
   SDL_RenderCopyEx(Gfx_GetRenderer(), game->joshim.frames[game->joshim.currFrame], NULL, &dest, 0, NULL, game->joshim.facingRight);
 }
 
-void Joshim_Move(Game* game) {
+void Joshim_Animate(Game* game) {
   if (!game->joshim.onPlatform) {
     game->joshim.currFrame = JOSHIM_JUMP_1;
   }
@@ -53,13 +55,20 @@ void Joshim_Move(Game* game) {
   else {
     game->joshim.currFrame = JOSHIM_IDLE_1;
   }
+}
 
+void Joshim_Move(Game* game) {
   game->joshim.x += game->joshim.dx;
   game->joshim.y += game->joshim.dy;
 
   if (game->joshim.applyGravity) {
     game->joshim.dy += GRAVITY;
   }
+}
+
+void Joshim_Update(Game* game) {
+  Joshim_Animate(game);
+  Joshim_Move(game);
 
   game->scrollX = -game->joshim.x + 320;
 

@@ -46,6 +46,10 @@ void Gfx_BlitTexture(SDL_Texture* texture, SDL_Rect* dest) {
   SDL_RenderCopy(graphics.renderer, texture, NULL, dest);
 }
 
+void Gfx_ExBlitTexture(SDL_Texture* texture, SDL_Rect* dest, bool flip) {
+  SDL_RenderCopyEx(graphics.renderer, texture, NULL, dest, 0, NULL, flip);
+}
+
 void Gfx_PresentRend() {
   SDL_RenderPresent(graphics.renderer);
 }

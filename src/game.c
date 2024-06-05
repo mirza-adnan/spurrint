@@ -21,13 +21,71 @@ void Game_Init() {
   game.scrollX = 0;
 }
 
+void Game_ResetAll(Game* game) {
+  game->joshim.lives--;
+  game->time = 0;
+  game->joshim.x = 20;
+  game->joshim.y = 250;
+  game->joshim.dx = 0;
+  game->joshim.dy = 0;
+  game->scrollX = 0;
+  game->joshim.lives = 9;
+  game->joshim.score = 0;
+  game->score = 0;
+
+  for (int i = 0; i < game->map.platformCount; i++) {
+    game->map.platforms[i].touched = false;
+  }
+  for (int i = 0; i < game->map.collectibleCount; i++) {
+    game->map.collectibles[i].collected = false;
+  }
+}
+
+void Game_HandleDeath(Game* game) {
+  game->joshim.lives--;
+  game->time = 0;
+  game->joshim.x = 20;
+  game->joshim.y = 250;
+  game->joshim.dx = 0;
+  game->joshim.dy = 0;
+
+  game->joshim.onPlatform = false;
+  game->joshim.facingRight = true;
+  game->joshim.slowingDown = false;
+  game->joshim.hasJumped = false;
+  game->joshim.continueJump = false;
+  game->joshim.applyGravity = true;
+}
+
+void Game_HandleEnd(Game* game) {
+  if (game->joshim.lives == 0) {
+    game->status = GAME_STATUS_END;
+  }
+  else {
+    if (game->joshim.y + game->joshim.h > SCREEN_HEIGHT) {
+      Game_HandleDeath(game);
+    }
+  }
+}
+
 void Game_RenderGame() {
   Map_DrawMap(&game);
-  Joshim_Move(&game);
+  if (game.status == GAME_STATUS_GAME) {
+    Joshim_Update(&game);
+    Joshim_Draw(&game);
+  }
+  else if (game.status == GAME_STATUS_ENDING) {
+    Map_EndingAnimation(&game);
+  }
   Map_CollectCollectible(&game);
-  Map_DetectCollision(&game);
-  Joshim_Draw(&game);
-  Text_DrawScore(&game);
+  Map_Update(&game);
+  Game_HandleEnd(&game);
+}
+
+void Game_RenderEnding() {
+  Map_DrawMap(&game);
+  Map_EndingAnimation(&game);
+  Map_CollectCollectible(&game);
 }
 
 void Game_RenderEnd() {
@@ -37,6 +95,7 @@ void Game_RenderEnd() {
   Text_DrawText(true, -1, SCREEN_HEIGHT / 2 - 80, "Game Over", color, FONT_SIZE_48);
   SDL_Color white = { 255, 255, 255, 255 };
   Text_DrawText(true, -1, SCREEN_HEIGHT / 2 - 40, "Press R to try again", white, FONT_SIZE_36);
+  Text_DrawText(true, -1, SCREEN_HEIGHT / 2 - 15, "Or press Esc to return to Main Menu", white, FONT_SIZE_36);
 }
 
 void Game_RenderCycle() {
@@ -45,7 +104,7 @@ void Game_RenderCycle() {
   if (game.status == GAME_STATUS_MENU) {
     Menu_DrawMenu();
   }
-  else if (game.status == GAME_STATUS_GAME) {
+  else if (game.status == GAME_STATUS_GAME || game.status == GAME_STATUS_ENDING) {
     Game_RenderGame();
   }
   else if (game.status == GAME_STATUS_END) {

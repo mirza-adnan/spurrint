@@ -11,5 +11,6 @@
 void Text_DrawScore(Game* game);
 void Text_DrawText(bool center, int x, int y, char* text, SDL_Color color, FontSize size);
 void Text_Init();
+void Text_DrawLives(Game* game);
 
 #endif

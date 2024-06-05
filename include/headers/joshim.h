@@ -9,7 +9,7 @@
 
 void Joshim_Init(Joshim* joshim);
 void Joshim_Draw(Game* game);
-void Joshim_Move(Game* game);
+void Joshim_Update(Game* game);
 void Joshim_Cleanup(Joshim* joshim);
 
 #endif

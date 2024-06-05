@@ -3,10 +3,12 @@
 Text textWrapper;
 
 void Text_Init() {
-  textWrapper.fonts[FONT_SIZE_48_BOLD] = TTF_OpenFont("./src/assets/fonts/Crazy-Pixel.ttf", 48);
   textWrapper.fonts[FONT_SIZE_48] = TTF_OpenFont("./src/assets/fonts/Crazy-Pixel.ttf", 48);
+  textWrapper.fonts[FONT_SIZE_48_BOLD] = TTF_OpenFont("./src/assets/fonts/Crazy-Pixel.ttf", 48);
   textWrapper.fonts[FONT_SIZE_36] = TTF_OpenFont("./src/assets/fonts/Crazy-Pixel.ttf", 36);
+  textWrapper.fonts[FONT_SIZE_42] = TTF_OpenFont("./src/assets/fonts/Crazy-Pixel.ttf", 42);
   TTF_SetFontStyle(textWrapper.fonts[FONT_SIZE_48_BOLD], TTF_STYLE_BOLD);
+  TTF_SetFontStyle(textWrapper.fonts[FONT_SIZE_42], TTF_STYLE_BOLD);
 
   for (int i = 0; i < FONT_SIZE_TOTAL; i++) {
     if (textWrapper.fonts[i] == NULL) {
@@ -51,6 +53,10 @@ void Text_DrawScore(Game* game) {
 
   SDL_Color black = { 0, 0, 0, 255 };
   Text_DrawText(false, 560, 5, str, black, FONT_SIZE_48_BOLD);
+}
+
+void Text_DrawLives(Game* game) {
+
 }
 
 void Text_Cleanup() {

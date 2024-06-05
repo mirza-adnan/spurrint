@@ -16,6 +16,8 @@ void Game_Start();
 void Game_Init();
 void Game_GameLoop();
 void Game_Cleanup();
+void Game_ResetAll(Game* game);
+void Game_HandleDeath(Game* game);
 
 
 #endif
