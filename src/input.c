@@ -34,6 +34,9 @@ bool Inp_EventLoop(Game* game) {
           Game_ResetAll(game);
           game->status = GAME_STATUS_MENU;
         }
+        else if (game->status == GAME_STATUS_GAME) {
+          game->status = GAME_STATUS_PAUSED;
+        }
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
@@ -47,9 +50,33 @@ bool Inp_EventLoop(Game* game) {
               if ((y > options[i].y) && (y < (options[i].y + options[i].h))) {
                 if (options[i].type == MENU_BUTTON_PLAY) {
                   game->status = GAME_STATUS_GAME;
+                  Game_ResetAll(game);
                 }
                 else if (options[i].type == MENU_BUTTON_EXIT) {
                   continueLoop = false;
+                }
+              }
+            }
+          }
+        }
+      }
+      else if (game->status == GAME_STATUS_PAUSED) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
+          PauseOption* options = Menu_GetPauseOptions();
+          int x, y;
+          SDL_GetMouseState(&x, &y);
+          for (int i = 0; i < PAUSE_BUTTON_TOTAL; i++) {
+            if ((x > options[i].x) && (x < (options[i].x + options[i].w))) {
+              if ((y > options[i].y) && (y < (options[i].y + options[i].h))) {
+                if (options[i].type == PAUSE_BUTTON_RESTART) {
+                  game->status = GAME_STATUS_GAME;
+                  Game_ResetAll(game);
+                }
+                else if (options[i].type == PAUSE_BUTTON_EXIT) {
+                  continueLoop = false;
+                }
+                else if (options[i].type == PAUSE_BUTTON_CONTINUE) {
+                  game->status = GAME_STATUS_GAME;
                 }
               }
             }

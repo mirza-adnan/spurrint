@@ -56,11 +56,11 @@ typedef struct {
 
 typedef struct {
   unsigned int platformCount;
-  Platform platforms[50];
+  Platform platforms[100];
   unsigned int collectibleCount;
   Collectible collectibles[20];
   SDL_Texture* textures[BLOCK_TYPE_TOTAL];
-  SDL_Texture* buildings[2];
+  SDL_Texture* buildings[7];
   SDL_Texture* heart;
   SDL_Texture* manTex[3];
   int manFrame;
@@ -85,8 +85,16 @@ typedef struct {
 } MenuOption;
 
 typedef struct {
+  char name[10];
+  int x, y, w, h;
+  bool selected;
+  PauseButton type;
+} PauseOption;
+
+typedef struct {
   MenuOption options[MENU_BUTTON_TOTAL];
   SDL_Texture* textures[3];
+  PauseOption pauseOptions[PAUSE_BUTTON_TOTAL];
 } Menu;
 
 typedef struct {
@@ -96,6 +104,7 @@ typedef struct {
   unsigned int score;
   float scrollX;
   GameStatus status;
+  unsigned int endTime;
 } Game;
 
 

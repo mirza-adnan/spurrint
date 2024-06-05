@@ -27,10 +27,18 @@ typedef enum {
 
 typedef enum {
   GAME_STATUS_MENU,
+  GAME_STATUS_PAUSED,
   GAME_STATUS_GAME,
   GAME_STATUS_ENDING,
   GAME_STATUS_END
 } GameStatus;
+
+typedef enum {
+  PAUSE_BUTTON_CONTINUE,
+  PAUSE_BUTTON_RESTART,
+  PAUSE_BUTTON_EXIT,
+  PAUSE_BUTTON_TOTAL
+} PauseButton;
 
 typedef enum {
   MENU_BUTTON_PLAY,

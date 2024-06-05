@@ -11,6 +11,8 @@
 void Menu_Init();
 void Menu_DrawMenu();
 MenuOption* Menu_GetOptions();
+PauseOption* Menu_GetPauseOptions();
+void Menu_DrawPauseMenu();
 void Menu_Cleanup();
 
 #endif

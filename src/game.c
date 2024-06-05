@@ -19,6 +19,7 @@ void Game_Init() {
   game.status = GAME_STATUS_MENU;
   game.time = 0;
   game.scrollX = 0;
+  game.endTime = 0;
 }
 
 void Game_ResetAll(Game* game) {
@@ -32,6 +33,14 @@ void Game_ResetAll(Game* game) {
   game->joshim.lives = 9;
   game->joshim.score = 0;
   game->score = 0;
+  game->endTime = 0;
+
+  game->joshim.onPlatform = false;
+  game->joshim.facingRight = true;
+  game->joshim.slowingDown = false;
+  game->joshim.hasJumped = false;
+  game->joshim.continueJump = false;
+  game->joshim.applyGravity = true;
 
   for (int i = 0; i < game->map.platformCount; i++) {
     game->map.platforms[i].touched = false;
@@ -103,6 +112,9 @@ void Game_RenderCycle() {
 
   if (game.status == GAME_STATUS_MENU) {
     Menu_DrawMenu();
+  }
+  else if (game.status == GAME_STATUS_PAUSED) {
+    Menu_DrawPauseMenu();
   }
   else if (game.status == GAME_STATUS_GAME || game.status == GAME_STATUS_ENDING) {
     Game_RenderGame();

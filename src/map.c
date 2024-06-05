@@ -1,5 +1,7 @@
 #include "map.h"
 
+#define ENDING_X 7515
+
 void Map_Init(Map* map) {
   map->platformCount = 0;
   map->collectibleCount = 0;
@@ -31,6 +33,12 @@ void Map_Init(Map* map) {
   map->heart = Gfx_LoadTexture("./src/assets/sprites/heart1.png");
 
   map->buildings[0] = Gfx_LoadTexture("./src/assets/buildings/building1.png");
+  map->buildings[1] = Gfx_LoadTexture("./src/assets/buildings/building2.png");
+  map->buildings[2] = Gfx_LoadTexture("./src/assets/buildings/building3.png");
+  map->buildings[3] = Gfx_LoadTexture("./src/assets/buildings/building4.png");
+  map->buildings[4] = Gfx_LoadTexture("./src/assets/buildings/building5.png");
+  map->buildings[5] = Gfx_LoadTexture("./src/assets/buildings/building6.png");
+  map->buildings[6] = Gfx_LoadTexture("./src/assets/buildings/pillars.png");
 
   map->humanCount = 0;
 
@@ -218,9 +226,35 @@ void Map_DrawSky(Game* game) {
 }
 
 void Map_DrawBuildings(Game* game) {
-  SDL_Rect rect1 = { 20 + game->scrollX, 100, 0, 0 };
-  SDL_QueryTexture(game->map.buildings[0], NULL, NULL, &rect1.w, &rect1.h);
-  Gfx_BlitTexture(game->map.buildings[0], &rect1);
+  SDL_Rect rect = { 20 + game->scrollX, 100, 0, 0 };
+
+  SDL_QueryTexture(game->map.buildings[0], NULL, NULL, &rect.w, &rect.h);
+  Gfx_BlitTexture(game->map.buildings[0], &rect);
+
+  SDL_QueryTexture(game->map.buildings[4], NULL, NULL, &rect.w, &rect.h);
+  rect.x = 1440 + game->scrollX;
+  rect.y = SCREEN_HEIGHT - 128 - rect.h;
+  Gfx_BlitTexture(game->map.buildings[4], &rect);
+
+  SDL_QueryTexture(game->map.buildings[1], NULL, NULL, &rect.w, &rect.h);
+  rect.x = 3040 + game->scrollX;
+  rect.y = SCREEN_HEIGHT - 128 - rect.h + 2;
+  Gfx_BlitTexture(game->map.buildings[1], &rect);
+
+  rect.x = 3040 + game->scrollX + rect.w + 30;
+  SDL_QueryTexture(game->map.buildings[2], NULL, NULL, &rect.w, &rect.h);
+  rect.y = SCREEN_HEIGHT - 128 - rect.h;
+  Gfx_BlitTexture(game->map.buildings[2], &rect);
+
+  SDL_QueryTexture(game->map.buildings[5], NULL, NULL, &rect.w, &rect.h);
+  rect.x = 6560 + game->scrollX;
+  rect.y = SCREEN_HEIGHT - 128 - rect.h + 2;
+  Gfx_BlitTexture(game->map.buildings[5], &rect);
+
+  SDL_QueryTexture(game->map.buildings[6], NULL, NULL, &rect.w, &rect.h);
+  rect.x = 7350 + game->scrollX;
+  rect.y = SCREEN_HEIGHT - 128 - rect.h;
+  Gfx_BlitTexture(game->map.buildings[6], &rect);
 }
 
 void Map_DrawScore(Game* game) {
@@ -278,10 +312,9 @@ void Map_DrawHumans(Game* game) {
     human->x += human->dx;
 
     Gfx_ExBlitTexture(game->map.manTex[game->map.manFrame], &manRect, human->faceLeft);
-
-    if (game->time % 15 == 0) {
-      game->map.manFrame = (game->map.manFrame + 1) % 3;
-    }
+  }
+  if (game->time % 15 == 0) {
+    game->map.manFrame = (game->map.manFrame + 1) % 3;
   }
 }
 
@@ -306,7 +339,7 @@ void Map_HandleHumanHit(Game* game) {
 
 void Map_DrawFcat(Game* game) {
   if (game->status == GAME_STATUS_GAME) {
-    SDL_Rect fcatRect = { 1632 + game->scrollX, SCREEN_HEIGHT - 128 - 64, 64, 64 };
+    SDL_Rect fcatRect = { ENDING_X + game->scrollX, SCREEN_HEIGHT - 128 - 64, 64, 64 };
     Gfx_BlitTexture(game->map.fcatTex[game->map.fcatFrame], &fcatRect);
 
     if (game->time % 20 == 0) {
@@ -317,20 +350,26 @@ void Map_DrawFcat(Game* game) {
 
 void Map_TriggerEnding(Game* game) {
   Joshim* joshim = &game->joshim;
-  if ((joshim->y < (SCREEN_HEIGHT - 128)) && ((joshim->y + joshim->h) > (SCREEN_HEIGHT - 128 - 64))) {
-    if ((joshim->x + joshim->w) > 1632 && (joshim->x < (1632 + 64))) {
-      game->status = GAME_STATUS_ENDING;
+  if (game->status == GAME_STATUS_GAME) {
+    if ((joshim->y < (SCREEN_HEIGHT - 128)) && ((joshim->y + joshim->h) > (SCREEN_HEIGHT - 128 - 64))) {
+      if ((joshim->x + joshim->w) > ENDING_X && (joshim->x < (ENDING_X + 64))) {
+        game->status = GAME_STATUS_ENDING;
+        game->endTime = game->time;
+      }
     }
   }
 }
 
 void Map_EndingAnimation(Game* game) {
-  SDL_Rect rect = { 1632 - 64 + game->scrollX, SCREEN_HEIGHT - 128 - 104, 0, 0 };
+  SDL_Rect rect = { ENDING_X - 64 + game->scrollX, SCREEN_HEIGHT - 128 - 104, 0, 0 };
   SDL_QueryTexture(game->map.endTex[0], NULL, NULL, &rect.w, &rect.h);
   Gfx_BlitTexture(game->map.endTex[game->map.endFrame], &rect);
 
   if (game->time % 20 == 0) {
     game->map.endFrame = (game->map.endFrame + 1) % 4;
+  }
+  if (game->time == (game->endTime + 300)) {
+    game->status = GAME_STATUS_MENU;
   }
 }
 
@@ -355,7 +394,7 @@ void Map_Cleanup(Map* map) {
     SDL_DestroyTexture(map->textures[i]);
   }
 
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 7; i++) {
     SDL_DestroyTexture(map->buildings[i]);
   }
   SDL_DestroyTexture(map->heart);
