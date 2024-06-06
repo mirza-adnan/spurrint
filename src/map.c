@@ -220,6 +220,9 @@ void Map_KeepInBounds(Game* game) {
   if (game->joshim.x < 0) {
     game->joshim.x = 0;
   }
+  if (game->joshim.x > 7898) {
+    game->joshim.x = 7898;
+  }
 }
 
 void Map_Update(Game* game) {

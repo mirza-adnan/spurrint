@@ -75,6 +75,9 @@ void Joshim_Update(Game* game) {
   if (game->scrollX > 0) {
     game->scrollX = 0;
   }
+  if (game->scrollX < -7320) {
+    game->scrollX = -7320;
+  }
 }
 
 void Joshim_Cleanup(Joshim* joshim) {

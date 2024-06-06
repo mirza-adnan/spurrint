@@ -58,8 +58,8 @@ void Menu_DrawButtons() {
     SDL_Rect btnRect;
     SDL_QueryTexture(menu.textures[MENU_TEXTURE_BUTTON], NULL, NULL, &btnRect.w, &btnRect.h);
 
-    btnRect.w *= 2.3;
-    btnRect.h *= 2.3;
+    btnRect.w *= 2.5;
+    btnRect.h *= 2.5;
 
     btnRect.x = (SCREEN_WIDTH / 2) - (btnRect.w / 2);
     btnRect.y = 250 + (70 * i);
@@ -74,7 +74,7 @@ void Menu_DrawButtons() {
     SDL_Color active = { 255, 238, 200, 255 };
     SDL_Color black = { 0, 0, 0, 255 };
 
-    Text_DrawText(true, -1, 230 + (70 * i), menu.options[i].name, menu.options[i].selected ? active : black, FONT_SIZE_48);
+    Text_DrawText(true, -1, 230 + (72 * i), menu.options[i].name, menu.options[i].selected ? active : black, FONT_SIZE_48);
   }
 }
 
@@ -83,8 +83,8 @@ void Menu_DrawPauseButtons() {
     SDL_Rect btnRect;
     SDL_QueryTexture(menu.textures[MENU_TEXTURE_BUTTON], NULL, NULL, &btnRect.w, &btnRect.h);
 
-    btnRect.w *= 2.3;
-    btnRect.h *= 2.3;
+    btnRect.w *= 2.5;
+    btnRect.h *= 2.5;
 
     btnRect.x = (SCREEN_WIDTH / 2) - (btnRect.w / 2);
     btnRect.y = 250 + (70 * i);
@@ -99,7 +99,7 @@ void Menu_DrawPauseButtons() {
     SDL_Color active = { 255, 238, 200, 255 };
     SDL_Color black = { 0, 0, 0, 255 };
 
-    Text_DrawText(true, -1, 230 + (70 * i), menu.pauseOptions[i].name, menu.pauseOptions[i].selected ? active : black, FONT_SIZE_48);
+    Text_DrawText(true, -1, 232 + (70 * i), menu.pauseOptions[i].name, menu.pauseOptions[i].selected ? active : black, FONT_SIZE_48);
   }
 }
 
