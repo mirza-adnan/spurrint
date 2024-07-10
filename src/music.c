@@ -9,12 +9,12 @@ void Music_Init() {
   music.collect = Mix_LoadMUS("./src/assets/sounds/collect.mp3");
   music.damage = Mix_LoadMUS("./src/assets/sounds/damage.mp3");
   if (music.bg) {
-    Mix_VolumeChunk(music.bg, 40);
+    Mix_VolumeChunk(music.bg, 50);
   }
   else {
     printf("Cannot load bg music\n");
   }
-  Mix_VolumeMusic(46);
+  Mix_VolumeMusic(38);
 }
 
 void Music_Jump() {
