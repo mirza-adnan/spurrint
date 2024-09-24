@@ -11,7 +11,7 @@ void Joshim_Init(Joshim* joshim) {
 
   joshim->score = 0;
 
-  joshim->lives = 9;
+  joshim->lives = 3;
 
   joshim->frames[JOSHIM_RUN_1] = Gfx_LoadTexture("./src/assets/sprites/joshim_stand_1.png");
   joshim->frames[JOSHIM_RUN_2] = Gfx_LoadTexture("./src/assets/sprites/joshim_run_1.png");

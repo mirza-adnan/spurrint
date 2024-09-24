@@ -31,7 +31,7 @@ void Game_ResetAll(Game* game) {
   game->joshim.dx = 0;
   game->joshim.dy = 0;
   game->scrollX = 0;
-  game->joshim.lives = 9;
+  game->joshim.lives = 3;
   game->joshim.score = 0;
   game->score = 0;
   game->endTime = 0;
