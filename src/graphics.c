@@ -8,6 +8,8 @@ void Gfx_Init() {
     printf("Error creating window: %s\n", SDL_GetError());
   }
 
+  SDL_SetWindowFullscreen(graphics.window, SDL_WINDOW_FULLSCREEN);
+
   graphics.renderer = SDL_CreateRenderer(graphics.window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (graphics.renderer == NULL) {
     printf("Error creating renderer: %s\n", SDL_GetError());
