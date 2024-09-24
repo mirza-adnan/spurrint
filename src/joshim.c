@@ -6,8 +6,8 @@ void Joshim_Init(Joshim* joshim) {
   joshim->dx = 0;
   joshim->dy = 0;
 
-  joshim->w = 64;
-  joshim->h = 64;
+  joshim->w = 48;
+  joshim->h = 48;
 
   joshim->score = 0;
 

@@ -354,7 +354,7 @@ void Map_HandleHumanHit(Game* game) {
 
 void Map_DrawFcat(Game* game) {
   if (game->status == GAME_STATUS_GAME) {
-    SDL_Rect fcatRect = { ENDING_X + game->scrollX, SCREEN_HEIGHT - 128 - 64, 64, 64 };
+    SDL_Rect fcatRect = { ENDING_X + game->scrollX, SCREEN_HEIGHT - 128 - 48, 48, 48 };
     Gfx_BlitTexture(game->map.fcatTex[game->map.fcatFrame], &fcatRect);
 
     if (game->time % 20 == 0) {
@@ -376,8 +376,10 @@ void Map_TriggerEnding(Game* game) {
 }
 
 void Map_EndingAnimation(Game* game) {
-  SDL_Rect rect = { ENDING_X - 64 + game->scrollX, SCREEN_HEIGHT - 128 - 104, 0, 0 };
+  SDL_Rect rect = { ENDING_X - 64 + game->scrollX, SCREEN_HEIGHT - 128 - 104 + 32, 0, 0 };
   SDL_QueryTexture(game->map.endTex[0], NULL, NULL, &rect.w, &rect.h);
+  rect.w *= 0.7;
+  rect.h *= 0.7;
   Gfx_BlitTexture(game->map.endTex[game->map.endFrame], &rect);
 
   if (game->time % 20 == 0) {
